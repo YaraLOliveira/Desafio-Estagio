@@ -1,11 +1,11 @@
 //const connection = require('../../database/index');
 const Pessoa = require('../models/pessoaModel');
-module.exports = new pessoaController()
+
 class pessoaController {
   //---------------------------------------------------------------------------------------------
   async store(req, res){
     const pessoaExist = await Pessoa.findOne({ where : {email: req.body.email}});
-    if(userExists){
+    if(pessoaExist){
       return res.status(400).json({error :'Usuario ja existente'});
     }
     try{
@@ -50,3 +50,4 @@ class pessoaController {
     }
   }
 }
+module.exports = new pessoaController();
