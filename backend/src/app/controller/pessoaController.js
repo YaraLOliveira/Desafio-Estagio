@@ -1,45 +1,52 @@
-const connection = require('../../database/index')
-//------------------------post / concluido -----------------------------
-module.exports = {
-  async post( request, response){
+//const connection = require('../../database/index');
+const Pessoa = require('../models/pessoaModel');
+module.exports = new pessoaController()
+class pessoaController {
+  //---------------------------------------------------------------------------------------------
+  async store(req, res){
+    const pessoaExist = await Pessoa.findOne({ where : {email: req.body.email}});
+    if(userExists){
+      return res.status(400).json({error :'Usuario ja existente'});
+    }
     try{
-      const{ nome, email, endereco, sexo, ic_ativo} = request.body;
-      await connection ('pessoa').insert(
-      { nome, email, endereco, sexo, ic_ativo,})
-      return response.status(201).send({message: 'Cadastro realizado com sucesso!'
-      });
-    } catch (e) {
+       const { id,nome, email, endereco, sexo, ic_ativo } = await Pessoa.create(request.body);
+      return res.json({
+        id,nome, email, endereco, sexo, ic_ativo,} );
+    }catch (e) {
       response.status(400).send({
         message: 'Falha ao realizar cadastro'}
       );
     }
-  },
-//------------- get / concluido -----------------------------------------
-  async get(request, response){
-    const pessoa = await connection ('pessoa').select('*');
-    return response.json(pessoa);
-  }, 
-  //---------------delete / concluido ----------------------------------------------------
-  async delete(request, response){
-    const {id} = request.params;
-    try{
-      await connection('pessoa')
-      .where('id', id)
-      .delete();
-      return response.status(204).send({message: 'deletado com sucesso'});
-    }catch(e){
-      return response.status(401).send({message:'falha ao deletar'})
-    }
-
-  },
-  //---------------put / concluiod---------------------------------------------------------------
-  async put( request, response){
-    try{
-      const pessoa = await connection('pessoa').update( request.body);
-      return response.status(200).send({message:'atualizado com sucesso'})
-    }catch(e){
-      return response.status(400).json({error:' falha ao alterar' })
+  }
+//--------------------------------------------------------------------------------------------
+  async update(req, res){
+   const pessoa = await Pessoa.findByPk(req.params.id);
+   const{ nome , email, endereco, sexo, ic_ativo } = await pessoa.update(req.body);
+   return res.json({
+    id,nome, email, endereco, sexo, ic_ativo,} );
+  }
+  //------------------------------------------------------------------------------------------
+  async get(req, res){
+    try {
+      const pessoa = await Pessoa.findByPk(req.params.id);  
+      const list = pessoa.select('*');
+      res.status(200).send({list});
+    } catch (e) {
+      res.status(500).send({
+        message: 'Falha ao processar sua requisição'
+      });
     }
   }
-
+  //----------------------------------------------------------------------------------------
+  async delete(req, res){
+    try{
+      const pessoa = await Pessoa.findByPk(req.params.id);
+        if(pessoa){
+        await pessoa.destroy();
+        return response.status(204).send({message: 'deletado com sucesso'});
+        }
+      }catch(e){
+      return response.status(401).send({message:'falha ao deletar'});
+    }
+  }
 }
