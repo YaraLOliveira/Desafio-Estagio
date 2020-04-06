@@ -1,17 +1,19 @@
 // regras de negócios, lógica e funções!
-const Sequelize = require('sequelize');
-const {Model} = require('sequelize');
+const {Model, Sequelize, DataTypes} = require('sequelize');
 class Pessoa extends Model {
   static init (sequelize){
     super.init(
       {
-       name: Sequelize.STRING,
-       email: Sequelize.STRING,
-       endereco: Sequelize.STRING,
-       sexo: Sequelize.STRING,
-       ic_ativo: Sequelize.BOOLEAN,
+       id: DataTypes.INTEGER,
+       name: DataTypes.STRING,
+       email: DataTypes.STRING,
+       endereco: DataTypes.STRING,
+       sexo: DataTypes.STRING,
+       ic_ativo: DataTypes.BOOLEAN,
       },
-      {sequelize,}
+      {sequelize,
+        tableName: 'pessoa'
+      }
     );
   };
 };
