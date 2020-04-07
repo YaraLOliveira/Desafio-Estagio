@@ -7,7 +7,7 @@ module.exports = {
   dialect: 'mysql',
   define : {
     timestamps: true,//created at - upadate at(colunas bd)
-/*     underscored:true, // padrao de nomeclatura de tabelas
-    underscoredAll: true, */
+    underscored:true, // padrao de nomeclatura de tabelas
+    underscoredAll: true, 
   }
 }
