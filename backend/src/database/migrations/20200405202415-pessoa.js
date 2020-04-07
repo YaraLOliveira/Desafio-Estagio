@@ -4,7 +4,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('pessoa',
+    return queryInterface.createTable('pessoas',
      {
         id:{
           allowNull: false,
@@ -12,23 +12,24 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        no_pessoa:{
+        nome :{
           allowNull: false,
           type: Sequelize.STRING,
         },
-        no_email:{
+        email:{
           allowNull: false,
           type: Sequelize.STRING,
+          unique: true,
         },
         endereco:{
           allowNull: false,
           type: Sequelize.STRING,
         },
-        sex_pessoa:{
+        sexo:{
           allowNull: false,
-          type: Sequelize.STRING, 
+          type: Sequelize.CHAR, 
         },
-        ic_ativo:{
+        ativo:{
           allowNull: false, 
           type: Sequelize.BOOLEAN,
           defaultValue: false,
@@ -46,6 +47,6 @@ module.exports = {
   },
     
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('pessoa');
+    return queryInterface.dropTable('pessoas');
   }
 };

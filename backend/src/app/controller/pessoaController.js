@@ -9,6 +9,7 @@ class pessoaController {
     if(pessoaExist){
       return res.status(400).json({error :'Usuario ja existente'});
     }  */
+    console.log(req);
     await Pessoa.create(req.body)
     .then(response=>{
       console.log('create'+ response)

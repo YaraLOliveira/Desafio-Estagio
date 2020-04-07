@@ -4,15 +4,14 @@ class Pessoa extends Model {
   static init (sequelize){
     super.init(
       {
-       //id: DataTypes.INTEGER,
        name: DataTypes.STRING,
        email: DataTypes.STRING,
        endereco: DataTypes.STRING,
        sexo: DataTypes.STRING,
-       ic_ativo: DataTypes.BOOLEAN,
+       ativo: DataTypes.BOOLEAN,
       },
       {sequelize,
-        tableName: 'pessoa',
+
       }
     );
     
