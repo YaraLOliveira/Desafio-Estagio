@@ -1,5 +1,6 @@
-//const connection = require('../../database/index');
+const connection = require('../../database/index');
 const Pessoa = require('../models/pessoaModel');
+Pessoa.init(connection);
 
 class pessoaController {
   //---------------------------------------------------------------------------------------------
@@ -57,7 +58,7 @@ class pessoaController {
         });
       })
     }else{
-      await findAll()
+      await Pessoa.findAll()
       .then(response => {
         res.status(200).send(respoonse)
       })
