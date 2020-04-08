@@ -5,20 +5,25 @@ Pessoa.init(connection);
 class pessoaController {
   //---------------------------------------------------------------------------------------------
   async store(req, res){
-   /*  const pessoaExist = await Pessoa.findOne({ where : {email: req.body.email}});
-    if(pessoaExist){
-      return res.status(400).json({error :'Usuario ja existente'});
-    }  */
-    console.log(req);
-    await Pessoa.create(req.body)
-    .then(response=>{
-      console.log('create'+ response)
-      res.status(200).json(response);
-    })
-    .catch(error => {
-      console.log(error)
-      res.status(400).send({message: 'falha'})
-    });
+    if(req.body.nome != undefined && req.body.email != undefined && 
+        req.body.endereco != undefined && req.body.sexo != undefined && req.body.ativo != undefined){
+      const pessoaExist = await Pessoa.findOne({ where : {email: req.body.email}});
+      if(pessoaExist){
+        return res.status(400).json({error :'Usuario ja existente'});
+      } 
+      console.log(req.body);
+      await Pessoa.create(req.body)
+       .then(response=>{
+        console.log('create'+ response)
+        res.status(200).json(response);
+       })
+        .catch(error => {
+        console.log(error)
+        res.status(400).send({error: 'falha ao realizar cadastro'});
+      });
+    }else{
+      res.status(400).send({error: 'falha ao realizar cadastro'});
+    }
   }
 
 
@@ -34,7 +39,7 @@ class pessoaController {
    })
    .catch(error => {
      console.log(error)
-     res.status(400).send({ message : 'falha'});
+     res.status(400).send({ message : 'falha ao atualizar'});
    });
   }
   //------------------------------------------------------------------------------------------
@@ -48,24 +53,24 @@ class pessoaController {
         }else{ 
           console.log(error)
           res.status(400).send({
-            message: 'falha1'
+            message: 'usuario nao encontrado'
           });
         }
       })
       .catch(error => {
         console.log(error)
-        res.status(500).send({
-          message: 'falha2 '
+        res.status(400).send({
+          message: 'falha ao buscar usuario'
         });
       })
     }else{
       await Pessoa.findAll()
       .then(response => {
-        res.status(200).send(respoonse)
+        res.status(200).send(response)
       })
       .catch(error => {
-        res.status(500).send({
-          message: 'falha'
+        res.status(400).send({
+          message: 'falha ao listar usuario'
         });
       })
     }
@@ -75,16 +80,16 @@ class pessoaController {
    await Pessoa.findByPk(req.params.id)
    .then(pessoa=>{
      if(pessoa){
-       pessoa.destro()
+       pessoa.destroy()
        .then(
-         res.status(204).send({message: 'deletado'})
+        res.status(204).send({message: `usuario ${pessoa.nome} deletado com sucesso`})
        )
      }
-     res.status(400).send({message: 'nao encontrado'})
+     res.status(400).send({message: 'usuario nao encontrado'})
    })
    .catch(error =>{
      console.log(error)
-     res.status(401).send({ message: 'falha'})
+     res.status(401).send({ message: 'falha ao deletar usuario'})
    });
   }
 }

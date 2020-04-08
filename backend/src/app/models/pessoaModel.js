@@ -4,7 +4,7 @@ class Pessoa extends Model {
   static init (sequelize){
     super.init(
       {
-       name: DataTypes.STRING,
+       nome: DataTypes.STRING,
        email: DataTypes.STRING,
        endereco: DataTypes.STRING,
        sexo: DataTypes.STRING,

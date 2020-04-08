@@ -5,6 +5,7 @@ const pessoaController = require('../app/controller/pessoaController')
 //------------------------------------------------------------------------
 routes.post('/pessoa', pessoaController.store);
 routes.get('/pessoa', pessoaController.get);
+routes.get('/pessoa/:id', pessoaController.get);
 routes.put('/pessoa/:id', pessoaController.update);
 routes.delete('/pessoa/:id', pessoaController.delete);
 
