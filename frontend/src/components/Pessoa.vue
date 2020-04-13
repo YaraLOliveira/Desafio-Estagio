@@ -1,7 +1,7 @@
 <template>
 <div id = "geral">
-  <form>
-  <div class="form-row" style="background:#8BFF4F " >
+  <form id = "form">
+  <div class="form-row" >
     <div class="form-group col-md-6">
       <label for="inputNome4">Nome</label>
       <input type="Nome" class="form-control" id="inputNome4" placeholder="Nome">
@@ -11,89 +11,53 @@
       <input type="Email" class="form-control" id="inputEmail4" placeholder="Email">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-4">
     <label for="inputAddress">Endereço</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    <input type="text" class="form-control" id="inputAddress" style="width:300px" placeholder="endereco">
   </div>
   <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-8" >
       <label for="inputState">Sexo</label>
-      <select id="inputState" class="form-control">
-        <option selected>Selecione...</option>
-        <option>Masculino</option>
-        <option>Feminino</option>
+      <select id="inputState" class="form-control"  >
+        <option selected ></option>
+        <option>M</option>
+        <option>F</option>
       </select>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-1 "  >
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
+      <input class="form-check-input" type="checkbox" id="gridCheck" style="position: center;">
+      <label class="form-check-label" for="gridCheck" >
         Ativo
       </label>
     </div>
   </div>
-  <button style="color: #332A14" type="submit" class="btn btn-primary">Cadastrar</button>
+  <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
-
+<!------------------------------>
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">id</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Email</th>
+      <th scope="col">status</th>
+      <th scope="col" style="width: 200px;">action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+    <tr v-for="user in users" :key="user.id">
+      <th scope="row">{{user.id}}</th>
+      <td>{{user.nome}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.status}}</td>
+      <td>
 
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+        <button type="submit" class="btn btn-warning">Editar</button>
+        <button type="submit" class="btn btn-danger" >Remove</button>
+
+      </td>
     </tr>
   </tbody>
 </table>
@@ -101,13 +65,45 @@
 </template>
 
 <script>
+import axios from '../axios'
 export default {
+  data () {
+    return {
+      users: {
+        nome: '',
+        email: '',
+        endereco: '',
+        sexo: '',
+        ativo: false
+      },
+      error: []
 
+    }
+  },
+  methods: {
+    buscar () {
+      axios.get('/pessoa', {crossdomain: true})
+        .then(res => {
+          this.results = res.data.results
+        })
+    }
+  },
+  created () {
+    this.buscar()
+  }
 }
+
 </script>
 
 <style>
 #geral{
-  display: flex
+  display: flex-colum;
 }
+#form{
+  padding: 50px 150px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
 </style>
