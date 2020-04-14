@@ -14,10 +14,10 @@
         <a class="nav-link" href="/animal">Animal</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/">Lote</a>
+        <a class="nav-link" href="/lote">Lote</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/">Alocar Animais</a>
+        <a class="nav-link" href="/alocar">Alocar Animais</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
