@@ -5,6 +5,7 @@ Pessoa.init(connection);
 class pessoaController {
   //---------------------------------------------------------------------------------------------
   async store(req, res){
+    console.log(req.body)
     if(req.body.nome != undefined && req.body.email != undefined && 
         req.body.endereco != undefined && req.body.sexo != undefined && req.body.ativo != undefined){
       const pessoaExist = await Pessoa.findOne({ where : {email: req.body.email}});
@@ -22,7 +23,7 @@ class pessoaController {
         res.status(400).send({error: 'falha ao realizar cadastro'});
       });
     }else{
-      res.status(400).send({error: 'falha ao realizar cadastro'});
+      res.status(400).send({error: 'falha ao realizar cadastro há campos nulos ou invalidos'});
     }
   }
 
@@ -78,12 +79,10 @@ class pessoaController {
   //----------------------------------------------------------------------------------------
   async delete(req, res){
    await Pessoa.findByPk(req.params.id)
-   .then(pessoa=>{
+   .then(pessoa => {
      if(pessoa){
-       pessoa.destroy()
-       .then(
-        res.status(204).send({message: `usuario ${pessoa.nome} deletado com sucesso`})
-       )
+      pessoa.destroy()
+      res.status(200).send({message: `usuario ${pessoa.nome} deletado com sucesso`})
      }
      res.status(400).send({message: 'usuario nao encontrado'})
    })
