@@ -71,13 +71,13 @@ class loteController {
       .then((lote) => {
         if (lote) {
           lote.destroy();
-          res.status(200).json({ messange: `lote ${lote.nome} deletado` });
+          res.status(200).json({ message: `lote ${lote.nome} deletado` });
         }
-        res.status(400).send({ messange: "lote nao encontrado" });
+        res.status(400).send({ message: "lote nao encontrado" });
       })
       .catch((erro) => {
         console.log(erro);
-        res.status(401).send({ messange: "falha ao deletar lote" });
+        res.status(401).send({ message: "falha ao deletar lote" });
       });
   }
 }

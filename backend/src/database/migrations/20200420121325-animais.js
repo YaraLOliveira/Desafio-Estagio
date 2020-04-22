@@ -51,6 +51,14 @@ module.exports = {
         nascimento:{
           allowNull: false,
           type: Sequelize.DATEONLY
+        },
+        created_at: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
+        updated_at: {
+          allowNull: false,
+          type: Sequelize.DATE,
         }
       });
 

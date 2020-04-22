@@ -11,22 +11,15 @@ class Animais extends Model {
         peso: DataTypes.FLOAT,
         nascimento: DataTypes.DATEONLY,
       },
+      { sequelize },
       (Animais.associate = (models) => {
         Animais.belongsTo(models.PessoaModel, {
           as: "proprietario", //pertence como
-          foreignKey: "fk_id_pessoa", // chave estrangeira
+          foreignKey: "fk_id_pessoas", // chave estrangeira
           onUpdate: "CASCADE", //ATUALIZA -> com tabela pai
           onDelete: "CASCADE", //DELETA -> se o pai for deletado
         });
-
-/*         Animais.belongsToMany(models.LoteModel, {
-          through: "Animalote",
-          as: "lotes",
-
-
-        });  */
-      }),
-      { sequelize }
+      })
     );
   }
 }
