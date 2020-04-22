@@ -10,11 +10,8 @@ class Pessoa extends Model {
        sexo: DataTypes.STRING,
        ativo: DataTypes.BOOLEAN,
       },
-      {sequelize,
-
-      }
+      {sequelize,}
     );
-    
   };
 };
 module.exports = Pessoa;
