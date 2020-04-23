@@ -1,7 +1,7 @@
 <template>
 <div>
 <nav  class="navbar navbar-expand-lg navbar-dark bg-dark" >
-  <a class="navbar-brand" style=" color: #7CE647" href="/">CRUD</a>
+  <a class="navbar-brand" style=" color: #7CE647" href="/home">CRUD</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -17,10 +17,10 @@
         <a class="nav-link" href="/lote">Lote</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/alocar">Alocar Animais</a>
+        <a class="nav-link"  href="/alocar">Alocar Animais</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" style=" color:  #FFE41F" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Code Review
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

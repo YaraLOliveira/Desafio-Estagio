@@ -8,7 +8,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="inputEmail4">Email</label>
-      <input  type="Email" class="form-control" id="inputEmail4" placeholder="Email" v-model="user.email" >
+      <input type="Email" class="form-control" id="inputEmail4" placeholder="Email" v-model="user.email" >
     </div>
   </div>
   <div class="form-group col-md-4">

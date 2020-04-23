@@ -23,5 +23,5 @@ routes.get('/animal', animalController.get);
 routes.get('/animal/:id', animalController.get);
 routes.put('/animal/:id', animalController.update);
 routes.delete('/animal/:id', animalController.delete);
-
+//-----------------animalote----------------------------------------------------
 module.exports =  routes;
