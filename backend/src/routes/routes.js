@@ -3,8 +3,7 @@ const routes = express.Router();
 const pessoaController = require('../app/controller/pessoaController');
 const loteController = require("../app/controller/loteController");
 const animalController = require('../app/controller/animalController');
-//const pessoa = require('./src/app/models/pessoaModel');
-
+const animaloteController = require('../app/controller/animaloteController');
 //---------------pessoas--------------------------------------------------------
 routes.post('/pessoa', pessoaController.store);
 routes.get('/pessoa', pessoaController.get);
@@ -24,4 +23,10 @@ routes.get('/animal/:id', animalController.get);
 routes.put('/animal/:id', animalController.update);
 routes.delete('/animal/:id', animalController.delete);
 //-----------------animalote----------------------------------------------------
+routes.post('/alocar', animaloteController.store);
+routes.get('/alocar', animaloteController.get);
+routes.get('/alocar/:id', animaloteController.get);
+routes.put('/alocar/:id', animaloteController.update);
+routes.delete('/alocar/:id', animaloteController.delete);
+
 module.exports =  routes;

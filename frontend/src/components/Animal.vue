@@ -1,7 +1,7 @@
 <template>
   <div>
         <!-- formulario cadastro animal -->
-    <form id="form" @submit="store(lote)">
+    <form id="form" @submit="store(animal)">
       <div class="form-row" >
         <div class="form-group col-md-6">
           <label for="inputNome4">Nome</label>
@@ -21,7 +21,12 @@
         </div>
         <div class="form-group col-md-6">
           <label for="input4">Data de Nascimento</label>
-          <input type="date" class="form-control" id="date" placeholder="Nelore .." v-model="animal.nascimento" >
+          <input type="date" class="form-control" id="date" placeholder="" v-model="animal.nascimento" >
+        </div>
+        <!-- disabilitar -->
+         <div class="form-group col-md-6">
+          <label for="input4">id usuario</label>
+          <input type="text" class="form-control" id="input4" placeholder="selecione na tabela abaixo"  readonly="readonly" v-model="animal.fk_id_pessoas" >
         </div>
       </div>
       <button v-if="!animal.id" type="submit" class="btn btn-primary" style="margin: 5%" >Cadastrar</button> <!-- se o lote nao existir=> cadastre -->
@@ -45,7 +50,7 @@
           <th scope="row">{{user.id}}</th>
           <td>{{user.nome}}</td>
           <td>
-            <button @click="buscarUser(user.id)" class="btn btn-warning" >selecionar</button>
+            <button @click="animal.fk_id_pessoas = user.id" class="btn btn-warning" >selecionar</button>
           </td>
         </tr>
       </tbody>
@@ -60,6 +65,7 @@
       <th scope="col">animal</th>
       <th scope="col">raça</th>
       <th scope="col">peso</th>
+      <th scope="col" style="width: 200px;">action</th>
     </tr>
   </thead>
   <tbody>
@@ -85,32 +91,38 @@ export default {
     return {
       users: [], // dados pessoa
       user: {},
-      animal: [], // dados animais
+      animal: {
+        fk_id_pessoas: ''
+      }, // dados animais
       animais: {}, // todos dos animais
       success: null,
       error: []
     }
   },
   methods: {
-    buscarUser (userId) {
-      axios.get(`/pessoa/${userId}`, {crossdomain: true})
+    buscarUser () {
+      axios.get(`/pessoa`, {crossdomain: true})
         .then(res => {
-          this.user = res.data // <- user
+          this.users = res.data // <- user
         })
         .catch(error => console.log(error)
         )
     },
     /* -------------------------------------- */
     buscar () {
-      this.submitting = true
-      axios.get('/animais', {crossdomain: true})
+      axios.get('/animal', {crossdomain: true})
         .then(res => {
-          res.animais = res.data
+          this.animais = res.data
         })
         .catch(error => console.log(error)
         )
     },
     store (novo) {
+      axios.post('/animal', novo)
+        .then(res => {
+          this.success = res
+        })
+        .catch(error => console.log(error))
     },
     updateAnimal (animalUp) {
       axios.put(`/animal/${animalUp.id}`, animalUp)
@@ -136,8 +148,8 @@ export default {
     }
   },
   created () {
+    this.buscarUser()
     this.buscar()
-    console.log(this)
   }
 }
 </script>
@@ -152,7 +164,6 @@ export default {
 }
 #form{
   padding: 50px 150px;
-
   display: flex;
   align-items: center;
 }
