@@ -38,14 +38,14 @@ module.exports = {
       },
 
       dt_saida: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
 
-      dt_mov: {
+/*       dt_mov: {
         allowNull: false,
         type: Sequelize.DATE,
-      },
+      }, */
 
       ativo_bez: {
         allowNull: false,

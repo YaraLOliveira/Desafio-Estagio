@@ -2,10 +2,9 @@ const connection = require('../../database/index');
 const Animal = require('../models/animalModel');
 const Pessoa = require('../models/pessoaModel');
 Animal.init(connection);
-/* Pessoa.init(connection); */
 
 class animalController {
-  //----------------------------------------------------------------------------
+
   async store (req, res){
     if (
       req.body.fk_id_pessoas != undefined &&
@@ -30,7 +29,7 @@ class animalController {
       res.status(400).send({ error : 'falta de dados'})
     }
   }
-  //----------------------------------------------------------------------------
+ 
   async update(req, res){
     await Animal.findByPk(req.params.id)
     .then((animal) =>{
@@ -42,7 +41,7 @@ class animalController {
     })
     .catch(error => res.status(400).send({error :"falha atualizar"}, error ));
   }
-  //----------------------------------------------------------------------------
+
   async delete (req, res) {
     await Animal.findByPk(req.params.id)
     .then((animal) =>{
@@ -55,7 +54,7 @@ class animalController {
     })
     .catch(error => res.status(401).send({message : " falha ao deletar"}, error));
   }
-  //----------------------------------------------------------------------------
+
   async get (req, res){
     if(req.params.id){
       await Animal.findByPk(req.params.id)

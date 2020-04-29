@@ -7,7 +7,6 @@ class Animalote extends Model {
         id_fk_lote: DataTypes.INTEGER,
         dt_entrada: DataTypes.DATE,
         dt_saida: DataTypes.DATE,
-        dt_mov: DataTypes.DATE,
         ativo_bez: DataTypes.BOOLEAN
       },
       {sequelize},
@@ -23,9 +22,9 @@ class Animalote extends Model {
           foreignKey: "id_fk_animal", // chave estrangeira
           onUpdate: "CASCADE", //ATUALIZA -> com tabela pai
           onDelete: "CASCADE", //DELETA -> se o pai for deletado
-        })
+        });
       })
-    )
-  }
+    );
+  };
 } 
 module.exports = Animalote;

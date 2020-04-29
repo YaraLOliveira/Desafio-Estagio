@@ -1,10 +1,9 @@
 //controller - controla as requisições http
 const connection = require("../../database/index"); // conexão banco/sequelize
 const Pessoa = require("../models/pessoaModel"); //  dados da model pessoa
-Pessoa.init(connection);
+Pessoa.init(connection);// conexão
 
 class pessoaController {
-  //---------------------------------------------------------------------------------------------
   async store(req, res) {
     console.log(req.body);
     if (
@@ -36,7 +35,7 @@ class pessoaController {
         });
     }
   }
-  //--------------------------------------------------------------------------------------------
+
   async update(req, res) {
     await Pessoa.findByPk(req.params.id)
       .then((pessoa) => {
@@ -51,7 +50,7 @@ class pessoaController {
         res.status(400).send({ message: "falha ao atualizar" });
       });
   }
-  //------------------------------------------------------------------------------------------
+
   async get(req, res) {
     if (req.params.id) {
       await Pessoa.findByPk(req.params.id)
@@ -85,7 +84,7 @@ class pessoaController {
         });
     }
   }
-  //----------------------------------------------------------------------------------------
+
   async delete(req, res) {
     await Pessoa.findByPk(req.params.id)
       .then((pessoa) => {

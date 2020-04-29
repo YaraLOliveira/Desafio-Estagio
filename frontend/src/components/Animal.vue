@@ -9,7 +9,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="input4">Fazenda</label>
-          <input type="number" class="form-control" id="number" placeholder="ID" v-model="animal.id_fazenda" >
+          <input type="number" class="form-control" id="number" min="0" placeholder="ID" v-model="animal.id_fazenda" >
         </div>
         <div class="form-group col-md-6">
           <label for="input4">raça</label>
@@ -29,7 +29,18 @@
           <input type="text" class="form-control" id="input4" placeholder="selecione na tabela abaixo"  readonly="readonly" v-model="animal.fk_id_pessoas" >
         </div>
       </div>
-      <button v-if="!animal.id" type="submit" class="btn btn-primary" style="margin: 5%" >Cadastrar</button> <!-- se o lote nao existir=> cadastre -->
+      <div style="margin: 1%" class="form-row">
+        <div class="form-group col" >
+          <label  for="inputState">Sexo</label>
+          <select id="inputState" class="selectpicker"  v-model="animal.sexo" >
+            <option selected ></option>
+            <option>M</option>
+            <option>F</option>
+          </select>
+        </div>
+      </div>
+  <!--  -->
+      <button v-if="!animal.id" type="submit" class="btn btn-primary" style="margin: 3%" >Cadastrar</button> <!-- se o lote nao existir=> cadastre -->
       <button v-if="animal.id" @click="updateAnimal(animal)" class="btn btn-primary">Atualizar</button> <!-- se o lote existir => atualize -->
       <button v-if="animal.id" @click="animal = {}" class="btn btn-primary">Cancelar</button> <!-- se cancelar limpe os campos -->
     </form>

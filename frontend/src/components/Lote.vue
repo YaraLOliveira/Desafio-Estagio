@@ -122,6 +122,7 @@ export default {
 }
 #form{
   padding: 50px 150px;
+  margin: 10px 200px;
   border-radius: 20px;
   display: flex;
   align-items: center;

@@ -21,6 +21,6 @@ class Animais extends Model {
         });
       })
     );
-  }
+  };
 }
 module.exports = Animais;

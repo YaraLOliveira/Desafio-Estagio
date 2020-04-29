@@ -3,9 +3,8 @@ const Lote = require("../models/loteModel");
 Lote.init(connection);
 
 class loteController {
-  //------------------------------------------------------------
+
   async store(req, res) {
-    //console.log(req.body)
     //if - verivicação de campo vazio
     if (req.body.nome != undefined && req.body.descricao != undefined) {
       // post -> create
@@ -22,7 +21,7 @@ class loteController {
       res.status(400).send({ error: "campos vazios ou nulos" });
     }
   }
-  //  put  -> update
+
   async update(req, res) {
     await Lote.findByPk(req.params.id)
       .then((lote) => {
@@ -37,7 +36,7 @@ class loteController {
         res.status(400).send({ error: "falha ao atualizar" });
       });
   }
-  // get -> findByPk - findAll
+
   async get(req, res) {
     if (req.params.id) {
       await Lote.findByPk(req.params.id)
@@ -65,7 +64,7 @@ class loteController {
         });
     }
   }
-  // delete -> destroy
+
   async delete(req, res) {
     await Lote.findByPk(req.params.id)
       .then((lote) => {

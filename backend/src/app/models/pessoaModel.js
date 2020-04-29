@@ -1,4 +1,4 @@
-// regras de negócios, lógica e funções!
+// regras de negócios, lógica e funções!// design pattern SINGLETON
 const {Model, DataTypes} = require('sequelize');
 class Pessoa extends Model {
   static init (sequelize){

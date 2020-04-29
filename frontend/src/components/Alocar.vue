@@ -1,102 +1,131 @@
 <template>
   <div>
-      <b-form  id="form" @submit="store(alocar)" >
-      <b-form-group
-        id="input-group-1"
-        label="Data de Entrada:"
-        label-for="input-1"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="alocar.dt_entrada"
-          type="date"
-          required
-          placeholder=""
-        ></b-form-input>
-      </b-form-group>
-      <!--  -->
-      <b-form-group
-        id="input-group-1"
-        label="Data de saida:"
-        label-for="input-1"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="alocar.dt_saida"
-          type="date"
-          required
-          placeholder=""
-        ></b-form-input>
-      </b-form-group>
-      <!--  -->
-      <b-form-group
-        id="input-group-1"
-        label="Ultima data de movimentação:"
-        label-for="input-1"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="alocar.dt_mov"
-          type="date"
-          required
-          placeholder=""
-        ></b-form-input>
-      </b-form-group>
-      <!--  -->
-      <b-form-group id="input-group-3" label="Lote:" label-for="input-3">
-        <b-form-select
-          id="input-3"
+    <br />
+    <form id="form" @submit="store(alocar)">
+      <div id="ladoL" class="form-group col-md-6">
+        <label for="input4">Selecione um Lote:</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="selecione na tabela abaixo"
+          readonly="readonly"
           v-model="alocar.id_fk_lote"
-          :options="lotes"
-          required
-        ></b-form-select>
-      </b-form-group>
+        />
+      </div>
+      <div id="ladoA" class="form-group col-md-6">
+        <label for="input4">Selecione um Animal:</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="selecione na tabela abaixo"
+          readonly="readonly"
+          v-model="alocar.id_fk_animal"
+        />
+      </div>
       <!--  -->
-     <p>  Selecione os animais:</p>
-    <b-form-select v-model="alocar.id_fk_animal" :options="animais" multiple :select-size="5"></b-form-select>
-    <div class="mt-3">Animais selecionados: <strong>{{ selected }}</strong></div>
-    <!--  -->
-    <br>
-      <b-form-group id="input-group-4">
-        <b-form-checkbox-group v-model="alocar.ativo_bez" id="checkboxes-4">
-          <b-form-checkbox value="me">ic_bezerro</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
-      <br>
-      <b-button type="submit" variant="primary">Alocar</b-button>
-      <b-button type="reset" variant="danger">Cancelar</b-button>
-    </b-form>
-    <br>
+      <table id="L" class="table table-dark">
+        <thead class="thead-dark">
+          <!-- parte superior da tabela - |id| nome|  seleciona | -->
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nome</th>
+            <th scope="col" style="width: 200px;">action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--  imput de dados  -->
+          <tr v-for="lote in lotes" :key="lote.id">
+            <th scope="row">{{lote.id}}</th>
+            <td>{{lote.nome}}</td>
+            <td>
+              <button
+                @click.prevent="alocar.id_fk_lote = lote.id"
+                class="btn btn-warning"
+              >selecionar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--  -->
+      <table id="A" class="table">
+        <thead class="thead-dark">
+          <!-- parte superior da tabela - |id| nome|  seleciona | -->
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nome</th>
+            <th scope="col" style="width: 200px;">action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--  imput de dados  -->
+          <tr v-for="animal in animais" :key="animal.id">
+            <th scope="row">{{animal.id}}</th>
+            <td>{{animal.nome}}</td>
+            <td>
+              <button
+                @click.prevent="alocar.id_fk_animal= animal.id"
+                class="btn btn-warning"
+              >selecionar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--  -->
+      <div id="l" class="form-group col-md-6">
+        <label for="inputNome4">Data entrada</label>
+        <input :readonly="alocar.id? true : false" type="date" class="form-control" v-model="dataEntrada" />
+      </div>
+      <div id="a" class="form-group col-md-6">
+        <label for="inputNome4">Data saida</label>
+        <input :readonly="!alocar.id? true : false" type="date" class="form-control" v-model="dataSaida" />
+      </div>
+      <!-- arrumar  -->
+      <div>
+       <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="alocar.ativo_bez">
+        <label class="form-check-label" for="exampleCheck1">Tem Bezerro</label>
+       </div>
+      <!--  -->
+      <button v-if="!alocar.id" type="submit" class="btn btn-primary" style="margin: 5%">Cadastrar</button>
+      <!-- se o lote nao existir=> cadastre -->
+      <button v-if="alocar.id" @click="updateAlocar(alocar)" style="margin: 5%" class="btn btn-primary">Atualizar</button>
+      <!-- se o lote existir => atualize -->
+      <button v-if="alocar.id" @click="alocar = {}" style="margin: 5%" class="btn btn-primary">Cancelar</button>
+
+    </form>
     <!--  -->
 
-    <table class="table table-dark">
+    <table class="table table-striped table-dark">
       <thead class="thead-dark">
-        <!-- parte superior da tabela - |id| nome|  seleciona | -->
         <tr>
           <th scope="col">id</th>
-          <th scope="col">Lote</th>
-          <th scope="col">Data Entrada</th>
-          <th scope="col">Data Saida</th>
-          <th scope="col">ic Bezerro</th>
+          <th scope="col">lote</th>
+          <th scope="col">animal</th>
+          <th scope="col">bezerro</th>
+          <th scope="col">data entrada</th>
+          <th scope="col">data saida</th>
           <th scope="col" style="width: 200px;">action</th>
         </tr>
       </thead>
       <tbody>
-        <!--  imput de dados  -->
         <tr v-for="alocar in alocacoes" :key="alocar.id">
           <th scope="row">{{alocar.id}}</th>
           <td>{{alocar.id_fk_lote}}</td>
-          <td>{{alocar.dt_entrada}}</td>
-          <td>{{alocar.dt_saida}}</td>
+          <td>{{alocar.id_fk_animal}}</td>
+          <td>{{alocar.ativo_bez ? 'sim' : 'não'}}</td>
+          <td>{{getFormato(alocar.dt_entrada)}}</td>
+          <td>{{alocar.dt_saida ? getFormato(alocar.dt_saida) : 'em andamento'}}</td>
+          <td>
+            <button @click="findAlocar(alocar.id)" class="btn btn-warning">Editar</button>
+          </td>
         </tr>
       </tbody>
     </table>
-
   </div>
 </template>
 
 <script>
 import axios from '../axios'
+import moment from 'moment'
 export default {
   data () {
     return {
@@ -111,67 +140,122 @@ export default {
       lotes: []
     }
   },
+  computed: {
+    dataEntrada: {
+      get () {
+        return this.alocar.dt_entrada ? this.getData(this.alocar.dt_entrada) : null
+      },
+      set (val) {
+        this.alocar.dt_entrada = val
+      }
+    },
+    dataSaida: {
+      get () {
+        return this.alocar.dt_saida ? this.getData(this.alocar.dt_saida) : null
+      },
+      set (val) {
+        this.alocar.dt_saida = val
+      }
+    }
+  },
   methods: {
     buscarAnimais () {
-      axios.get(`/animal`, {crossdomain: true})
+      axios
+        .get(`/animal`)
         .then(res => {
-          this.animais = res.data // <- user
+          this.animais =
+            res.data /* .map(animal => { this.options.push({'text': animal.nome, 'value': animal.id}) }) */
         })
-        .catch(error => console.log(error)
-        )
+        .catch(error => console.log(error))
+    },
+    buscarLotes () {
+      axios
+        .get(`/lote`)
+        .then(res => {
+          this.lotes =
+            res.data /* .map(animal => { this.options.push({'text': animal.nome, 'value': animal.id}) }) */
+        })
+        .catch(error => console.log(error))
     },
     buscar () {
-      axios.get('/alocar', {crossdomain: true})
+      axios
+        .get('/alocar', { crossdomain: true })
         .then(res => {
           this.alocacoes = res.data
         })
-        .catch(error => console.log(error)
-        )
+        .catch(error => console.log(error))
     },
     store (novo) {
-      axios.post('/alocar', novo)
+      axios
+        .post('/alocar', novo)
         .then(res => {
           this.success = res
         })
         .catch(error => console.log(error))
     },
-    updateAnimal (alocaUp) {
-      axios.put(`/alocar/${alocaUp.id}`, alocaUp)
+    updateAlocar (alocaUp) {
+      axios
+        .put(`/alocar/${alocaUp.id}`, alocaUp)
         .then(res => {
           console.log('atualizado')
         })
         .catch(error => console.log(error))
     },
-    findAnimal (alocaId) {
-      axios.get(`/animal/${alocaId}`)
+    findAlocar (alocaId) {
+      axios
+        .get(`/alocar/${alocaId}`)
         .then(res => {
           this.alocar = res.data
-          console.log(res.data)
         })
         .catch(error => console.log(error))
     },
-    deleteAnimal (alocaId) {
-      axios.delete(`/alocar/${alocaId}`)
-        .then(res => {
-          console.log(res)
-        })
-      this.$router.push('/')
+    getData (data) {
+      return moment.parseZone(data).utcOffset(0).format('YYYY-MM-DD')
+    },
+    getFormato (data) {
+      return moment.parseZone(data).utcOffset(0).format('DD/MM/YYYY')
     }
   },
 
   created () {
+    this.buscarLotes()
     this.buscarAnimais()
     this.buscar()
   }
 }
-
 </script>
 
 <style>
-#geral{
+#a {
+  width: 50%;
+  float: right;
+}
+#l {
+  width: 50%;
+  float: left;
+}
+#A {
+  transform: scale(0.9);
+  width: 50%;
+  float: right;
+}
+#L {
+  transform: scale(0.9);
+  width: 50%;
+  float: left;
+}
+#ladoA {
+  width: 50%;
+  float: right;
+}
+#ladoL {
+  width: 50%;
+  float: left;
+}
+#geral {
   display: flex-colum;
 }
-#form{
+#form {
   margin: 20px 250px;
 }
 </style>
