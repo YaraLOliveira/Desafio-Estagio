@@ -17,7 +17,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="input4">peso</label>
-          <input type="text" class="form-control" id="input4" placeholder="ex: 200" v-model="animal.peso" >
+          <input type="number" class="form-control" id="number" min="0" placeholder="ex: 200" v-model="animal.peso" >
         </div>
         <div class="form-group col-md-6">
           <label for="input4">Data de Nascimento</label>

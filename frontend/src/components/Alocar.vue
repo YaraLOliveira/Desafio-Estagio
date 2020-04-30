@@ -115,7 +115,7 @@
           <td>{{getFormato(alocar.dt_entrada)}}</td>
           <td>{{alocar.dt_saida ? getFormato(alocar.dt_saida) : 'em andamento'}}</td>
           <td>
-            <button @click="findAlocar(alocar.id)" class="btn btn-warning">Editar</button>
+            <button @click="findAlocar(alocar.id)" class="btn btn-warning">Saida</button>
           </td>
         </tr>
       </tbody>
